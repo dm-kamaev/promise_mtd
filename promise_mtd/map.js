@@ -7,8 +7,8 @@
  * @return {Promise<Array<any>>}
  */
 module.exports = function (data, promiseHandler) {
-  let list = [];
-  let start = Promise.resolve();
+  var list = [];
+  var start = Promise.resolve();
   for (let i = 0, l = data.length; i < l; i++) {
     start = start.then(() => {
       return promiseHandler(data[i], i);

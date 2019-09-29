@@ -5,31 +5,19 @@
  * @return {Promise}
  */
 module.exports = function (condition, action) {
-  return wrap(function loop(actionResult) {
-    if (condition(actionResult)) {
-      return wrap(action).then(loop);
+  var result = condition();
+
+  if (result) {
+    return Promise.resolve();
+  }
+
+  var next = () => {
+    if (condition()) {
+      return;
+    } else {
+      return action().then(next);
     }
-  });
-}
-
-// EXAMPLE USE:
-/*promise_api.while() => {
-  return count < 5;
-}, () => {
-  count++;
-}).then(() => {
-  console.log(count);
-  //=> 5
-});*/
-
-
-/**
- * wrap - fn to Promise
- * @param  {Function} fn() => Promise
- * @return {Promise}
- */
-const wrap = function(fn) {
-  return new Promise((resolve) => {
-    resolve(fn());
-  });
+  };
+  return action().then(next);
 };
+

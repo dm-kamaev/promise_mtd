@@ -11,7 +11,7 @@ module.exports = function (data, limit, promise_handler) {
   if (!limit) {
     throw new Error('required limit');
   }
-  const next = () => {
+  var next = () => {
     if (data[current]) {
       var d = data[current];
       current++;
