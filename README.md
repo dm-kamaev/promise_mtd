@@ -1,4 +1,9 @@
 # promise_mtd
+Set of methods allowing simplify work with Promises in cycle.
+Implementation ```forEach``` and ```map``` for working with array data unto whom need applied asynchronously function
+Method ```transform``` allows asynchronous iterations with array such as ```map```, but also it can skip unnecessary data
+Implementation cycle ```while``` for using with Promise
+Method ```parallel``` allows run concurrently promises such as method ```Promise.all```, but with limit.
 
 
 ```sh
