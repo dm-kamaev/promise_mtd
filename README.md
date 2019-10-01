@@ -1,9 +1,10 @@
 # promise_mtd
-Set of methods allowing simplify work with Promises in cycle.
-Implementation ```forEach``` and ```map``` for working with array data unto whom need applied asynchronously function
-Method ```transform``` allows asynchronous iterations with array such as ```map```, but also it can skip unnecessary data
-Implementation cycle ```while``` for using with Promise
-Method ```parallel``` allows run concurrently promises such as method ```Promise.all```, but with limit.
+Set of methods allowing to simplify work with promises in cycle.
+Implementation of ```forEach``` and ```map``` for working with array data when it's needed to apply asynchronous function to each element.
+Method ```transform``` allows asynchronous iterations over an array such as ```map```, but also it can skip unnecessary data.
+Implementation of cycle  ```while``` for using with promise.
+Method ```parallel``` allows to run concurrently promises such as method ```Promise.all```, but with limit.
+The library has no dependencies 😀.
 
 
 ```sh
