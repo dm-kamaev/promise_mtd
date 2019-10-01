@@ -3,7 +3,7 @@ Set of methods allowing to simplify work with promises in cycle.
 Implementation of ```forEach``` and ```map``` for working with array data when it's needed to apply asynchronous function to each element.
 Method ```transform``` allows to iterate asynchronously over an array similar to ```map```, but also it can skip unnecessary data.
 Implementation of cycle  ```while``` for using with promise.
-Method ```parallel``` allows to run concurrently promises such as method ```Promise.all```, but with limit.
+Method ```parallel``` allows to run concurrently promises similar to method ```Promise.all```, but with limit.
 The library has no dependencies 😀.
 
 
