@@ -15,18 +15,3 @@ promise_mthds.while = require('./promise_mtd/while.js');
 promise_mthds.parallel = require('./promise_mtd/parallel.js')
 
 
-const promiseMtd = promise_mthds;
-
-void async function() {
-  let count = 5;
-  await promiseMtd.while(() => count <= 0, async () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        console.log(count);
-        count--;
-        resolve();
-      }, count * 1000);
-    });
-  })
-  console.log('RESULT = ', count); // 0
-}();
