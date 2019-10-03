@@ -1,9 +1,9 @@
 # promise_mtd
 Set of methods allowing to simplify work with promises in cycle.
 Implementation of ```forEach``` and ```map``` for working with array data when it's needed to apply asynchronous function to each element.
-Method ```transform``` allows to iterate asynchronously over an array similar to ```map```, but also it can skip unnecessary data.
+Method ```transform``` allows to iterate asynchronously over an array similarly to ```map```, but also it can skip unnecessary data.
 Implementation of cycle  ```while``` for using with promise.
-Method ```parallel``` allows to run concurrently promises similar to method ```Promise.all```, but with limit.
+Method ```parallel``` allows to run concurrently promises similarly to method ```Promise.all```, but with limit.
 The library has no dependencies 😀.
 
 
@@ -12,7 +12,7 @@ npm i promise_mtd -S
 ```
 
 ### foreach(Array<any>, Function(el, index)) || forEach(Array<any>, Function(el, index))
-Foreach over promises serially
+```Foreach``` over promises serially
 ```js
 const promiseMtd = require('promise_mtd');
 void async function () {
@@ -29,7 +29,7 @@ void async function () {
 
 
 ### map(Array<any>, Function(el, index): Promise<any>)
-Map over promises serially
+```Map``` over promises serially
 ```js
 const promiseMtd = require('promise_mtd');
 void async function () {
@@ -46,7 +46,7 @@ void async function () {
 
 
 ### parallel(Array<any>, Function(el, index))
-Equalent Promise.all, but with limit
+Equivalent of ```Promise.all``` but with limit
 ```js
 const promiseMtd = require('promise_mtd');
 void async function() {
@@ -70,7 +70,7 @@ void async function() {
 
 
 ### transform(Array<any>, Function(el, index))
-Iterate array and filter over promises
+Iterating over an array and filter over promises
 ```js
 const promiseMtd = require('promise_mtd');
 void async function() {
@@ -87,7 +87,7 @@ void async function() {
 
 
 ### while(condition: Function(): Boolean, Function)
-While over promises serially
+```While``` over promises serially
 ```js
 const promiseMtd = require('promise_mtd');
 void async function() {
