@@ -91,16 +91,11 @@ void async function() {
 ```js
 const promiseMtd = require('promise_mtd');
 void async function() {
-  let count = 5;
-  await promiseMtd.while(() => count <= 0, async () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        console.log(count);
-        count--;
-        resolve();
-      }, count * 1000);
-    });
-  })
-  console.log(count); // 0
+  let i = 0;
+  await promiseMtd.while(() => i < 5, async function () {
+    console.log(i);
+    i++;
+  });
+  console.log(i); // 5
 }();
 ```

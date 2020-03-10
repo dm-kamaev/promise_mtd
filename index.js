@@ -15,11 +15,12 @@ promise_mthds.parallel = require('./promise_mtd/parallel.js')
 promise_mthds.setImmediate = promise_mthds.set_immediate = require('./promise_mtd/setImmediate.js');
 
 // void async function() {
-//   let i = 0;
-//   await promise_mthds.while(() => i < 5, async function () {
-//     console.log(i);
-//     i++;
-//   });
+  // let i = 0;
+  // await promise_mthds.while(() => i < 5, async function () {
+  //   console.log(i);
+  //   i++;
+  // });
+  // console.log(i);
   // var ar = new Array(1000000);
   // ar.fill(6732478247827842874872347823347823742378);
   // // console.log(ar);
