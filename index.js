@@ -1,18 +1,20 @@
 'use strict';
 
-const promise_mthds = module.exports;
+const promise_mtd = module.exports;
 
-promise_mthds.foreach = promise_mthds.forEach = require('./promise_mtd/foreach.js');
+promise_mtd.foreach = promise_mtd.forEach = require('./promise_mtd/foreach.js');
 
-promise_mthds.map = require('./promise_mtd/map.js');
+promise_mtd.map = require('./promise_mtd/map.js');
 
-promise_mthds.transform = require('./promise_mtd/transform.js');
+promise_mtd.transform = require('./promise_mtd/transform.js');
 
-promise_mthds.while = require('./promise_mtd/while.js');
+promise_mtd.while = require('./promise_mtd/while.js');
 
-promise_mthds.parallel = require('./promise_mtd/parallel.js')
+promise_mtd.parallel = require('./promise_mtd/parallel.js');
 
-promise_mthds.setImmediate = promise_mthds.set_immediate = require('./promise_mtd/setImmediate.js');
+promise_mtd.all = require('./promise_mtd/all.js');
+
+promise_mtd.setImmediate = promise_mtd.set_immediate = require('./promise_mtd/setImmediate.js');
 
 // void async function() {
   // let i = 0;
@@ -35,3 +37,28 @@ promise_mthds.setImmediate = promise_mthds.set_immediate = require('./promise_mt
 // }();
 
 
+// void async function() {
+//   try {
+//     var t1 = new Promise((resolve, reject) => {
+//       setTimeout(() => {
+//         resolve(2000);
+//       }, 2000);
+//     });
+
+//     var t2 = new Promise((resolve, reject) => {
+//       setTimeout(() => {
+//         resolve(1000);
+//       }, 1000);
+//     });
+
+
+//     // { t1: 2000, t2: 1000 }
+//     console.log(await promise_mtd.all({ t1, t2 }));
+
+//     // as Promise.all
+//     // [ 2000, 1000 ]
+//     console.log(await promise_mtd.all([ t1, t2 ]));
+//   } catch (err) {
+//     console.log('Raise', err);
+//   }
+// }();

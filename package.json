@@ -1,6 +1,6 @@
 {
   "name": "promise_mtd",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Set of methods allowing simplify work with Promises in cycle. Methods: forEach, map, while, transform, parallel",
   "main": "index.js",
   "scripts": {
@@ -57,7 +57,8 @@
     "predicate",
     "exception",
     "thunk",
-    "combinator"
+    "combinator",
+    "promise all"
   ],
   "author": "dm-kamaev@rambler.ru",
   "license": "ISC",
