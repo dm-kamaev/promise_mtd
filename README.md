@@ -111,7 +111,7 @@ void async function() {
 ```
 
 
-### all(condition: Function(): Boolean, Function)
+### all(data: Array<Promise> | Object<{ key: Promise }>): Array<any> | Object<{ key: any }>
 ```All``` over promises serially
 ```js
 const promiseMtd = require('promise_mtd');
