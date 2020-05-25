@@ -1,6 +1,6 @@
 {
   "name": "promise_mtd",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Set of methods allowing simplify work with Promises in cycle. Methods: forEach, map, while, transform, parallel",
   "main": "index.js",
   "scripts": {
