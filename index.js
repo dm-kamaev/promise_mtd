@@ -6,6 +6,8 @@ promise_mtd.foreach = promise_mtd.forEach = require('./promise_mtd/foreach.js');
 
 promise_mtd.map = require('./promise_mtd/map.js');
 
+promise_mtd.filter = require('./promise_mtd/filter.js');
+
 promise_mtd.transform = require('./promise_mtd/transform.js');
 
 promise_mtd.while = require('./promise_mtd/while.js');

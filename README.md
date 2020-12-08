@@ -1,7 +1,7 @@
 # promise_mtd
 Set of methods allowing to simplify work with promises in cycle.
 
-* Implementation of ```forEach``` and ```map``` for working with array data when it's needed to apply asynchronous function to each element.
+* Implementation of ```forEach```, ```map```, ```filter``` for working with array data when it's needed to apply asynchronous function to each element.
 * Method ```transform``` allows to iterate asynchronously over an array similarly to ```map```, but also it can skip unnecessary data.
 * Implementation of cycle  ```while``` for using with promise.
 * Method ```parallel``` allows to run concurrently promises similarly to method ```Promise.all```, but with limit.
@@ -49,6 +49,23 @@ void async function () {
 }();
 ```
 
+
+### filter(Array<any>, Function(el, index): Promise<Boolean>)
+```Filter```
+```js
+const promiseMtd = require('promise_mtd');
+
+void async function () {
+  let res = await promiseMtd.filter([ 0, 1, 2, 3 ], function(time, i) {
+    return new Promise((resolve, reject) => {
+      setTimeout(function() {
+        resolve(Boolean(i));
+      }, time*1000);
+    });
+  });
+  console.log(res); // [ 1, 2, 3 ]
+}();
+```
 
 ### parallel(Array<any>, Function(el, index))
 Equivalent of ```Promise.all``` but with limit
@@ -132,11 +149,11 @@ void async function() {
 
 
     // { t1: 2000, t2: 1000 }
-    console.log(await promise_mtd.all({ t1, t2 }));
+    console.log(await promiseMtd.all({ t1, t2 }));
 
     // as Promise.all
     // [ 2000, 1000 ]
-    console.log(await promise_mtd.all([ t1, t2 ]));
+    console.log(await promiseMtd.all([ t1, t2 ]));
   } catch (err) {
     console.log('Raise', err);
   }
