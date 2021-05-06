@@ -1,5 +1,5 @@
 # promise_mtd
-Set of methods allowing to simplify work with promises in cycle.
+Set of methods allowing to simplify work with promises in cycle. The library has support TypeScript.
 
 * Implementation of ```forEach```, ```map```, ```filter``` for working with array data when it's needed to apply asynchronous function to each element.
 * Method ```transform``` allows to iterate asynchronously over an array similarly to ```map```, but also it can skip unnecessary data.
@@ -105,7 +105,7 @@ void async function() {
 
 
 
-### whileTrue(condition: Function(): Boolean, Function)
+### asyncWhile(condition: Function(): Boolean, Function)
 ```While``` over promises serially
 ```js
 const promiseMtd = require('promise_mtd');
