@@ -10,7 +10,7 @@ promise_mtd.filter = require('./promise_mtd/filter.js');
 
 promise_mtd.transform = require('./promise_mtd/transform.js');
 
-promise_mtd.while = require('./promise_mtd/while.js');
+promise_mtd.async_while = promise_mtd.asyncWhile = require('./promise_mtd/async_while.js');
 
 promise_mtd.parallel = require('./promise_mtd/parallel.js');
 

@@ -3,7 +3,7 @@ Set of methods allowing to simplify work with promises in cycle.
 
 * Implementation of ```forEach```, ```map```, ```filter``` for working with array data when it's needed to apply asynchronous function to each element.
 * Method ```transform``` allows to iterate asynchronously over an array similarly to ```map```, but also it can skip unnecessary data.
-* Implementation of cycle  ```while``` for using with promise.
+* Implementation of cycle  while as ```asyncWhile```(while is reserved word) for using with promise.
 * Method ```parallel``` allows to run concurrently promises similarly to method ```Promise.all```, but with limit.
 * Method ```all``` allows to run concurrently promises similarly to method ```Promise.all```, but supports receipt of parameter such as object ```{ k1: Promise, k2: Promise }``` not only as array.
 
@@ -60,7 +60,7 @@ void async function () {
     return new Promise((resolve, reject) => {
       setTimeout(function() {
         resolve(Boolean(i));
-      }, time*1000);
+      }, time * 1000);
     });
   });
   console.log(res); // [ 1, 2, 3 ]
@@ -73,21 +73,14 @@ Equivalent of ```Promise.all``` but with limit
 const promiseMtd = require('promise_mtd');
 
 void async function() {
-  try {
-    await promiseMtd.parallel([ 3000, 3000, 3000, 2000, 2000, 2000, 1000], 3, async function(t, i) {
-      return new Promise((resolve) => {
-        // if (i === 4) {
-        //   throw new Error('stop');
-        // }
-        setTimeout(() => {
-          console.log(t);
-          resolve();
-        }, t);
-      });
+  await promiseMtd.parallel([ 3000, 3000, 3000, 2000, 2000, 2000, 1000], 3, async function(el, i) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        console.log(el);
+        resolve();
+      }, t);
     });
-  } catch (err) {
-    console.log('Raise', err);
-  }
+  });
 }();
 ```
 
@@ -112,14 +105,14 @@ void async function() {
 
 
 
-### while(condition: Function(): Boolean, Function)
+### whileTrue(condition: Function(): Boolean, Function)
 ```While``` over promises serially
 ```js
 const promiseMtd = require('promise_mtd');
 
 void async function() {
   let i = 0;
-  await promiseMtd.while(() => i < 5, async function () {
+  await promiseMtd.asyncWhile(() => i < 5, async function () {
     console.log(i);
     i++;
   });
@@ -134,28 +127,24 @@ void async function() {
 const promiseMtd = require('promise_mtd');
 
 void async function() {
-  try {
-    var t1 = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(2000);
-      }, 2000);
-    });
+  var t1 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(2000);
+    }, 2000);
+  });
 
-    var t2 = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(1000);
-      }, 1000);
-    });
+  var t2 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(1000);
+    }, 1000);
+  });
 
 
-    // { t1: 2000, t2: 1000 }
-    console.log(await promiseMtd.all({ t1, t2 }));
+  // { t1: 2000, t2: 1000 }
+  console.log(await promiseMtd.all({ t1, t2 }));
 
-    // as Promise.all
-    // [ 2000, 1000 ]
-    console.log(await promiseMtd.all([ t1, t2 ]));
-  } catch (err) {
-    console.log('Raise', err);
-  }
+  // as Promise.all
+  // [ 2000, 1000 ]
+  console.log(await promiseMtd.all([ t1, t2 ]));
 }();
 ```
