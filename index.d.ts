@@ -4,6 +4,10 @@ type Unwrap<T> =
   T extends (...args: any) => infer U ? U :
   T
 
+type UnwrapListOrObject<Type> = {
+  [P in keyof Type]: Unwrap<Type[P]>;
+};
+
 declare module 'promise_mtd' {
   export function forEach<Input = any>(data: Array<Input>, handler: (el: Input, index: number) => Promise<void>): void;
   export function foreach<Input = any>(data: Array<Input>, handler: (el: Input, index: number) => Promise<void>): void;
@@ -19,8 +23,10 @@ declare module 'promise_mtd' {
 
   export function parallel<Input = any>(data: Array<Input>, limit: number, handler: (el: Input, index: number) => Promise<void>): void;
 
-  export function all<Input = any>(data: Array<Input>): Promise<Array< Unwrap<Input> >>;
-  export function all<Input = any>(data: { [k: string]: Input }): Promise<{ [k: string]: Unwrap<Input> }>;
+  export function all<T>(list: T): Promise<UnwrapListOrObject<T>>;
+
+  // export function all<Input = any>(data: Array<Input>): Promise<Array< Unwrap<Input> >>;
+  // export function all<Input = any>(data: { [k: string]: Input }): Promise<{ [k: string]: Unwrap<Input> }>;
 
   export function setImmediate(): Promise<null>;
 }
