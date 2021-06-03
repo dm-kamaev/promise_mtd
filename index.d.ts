@@ -24,6 +24,7 @@ declare module 'promise_mtd' {
   export function parallel<Input = any>(data: Array<Input>, limit: number, handler: (el: Input, index: number) => Promise<void>): void;
 
   export function all<T>(list: T): Promise<UnwrapListOrObject<T>>;
+  export function all<T extends Object>(list: T): Promise<UnwrapListOrObject<T>>;
 
   // export function all<Input = any>(data: Array<Input>): Promise<Array< Unwrap<Input> >>;
   // export function all<Input = any>(data: { [k: string]: Input }): Promise<{ [k: string]: Unwrap<Input> }>;
