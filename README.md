@@ -23,7 +23,7 @@ void async function () {
   await promiseMtd.forEach([ 300, 200, 100], async function (el, i) {
     return new Promise((resolve, reject) => {
       setTimeout(function() {
-        console.log(el);
+        console.log(el); // 300 then 200 then 100
         resolve();
       }, el+i);
     });
@@ -38,7 +38,7 @@ void async function () {
 const promiseMtd = require('promise_mtd');
 
 void async function () {
-  let res = await promiseMtd.map([ 300, 200, 100], async function (el, i) {
+  const res = await promiseMtd.map([ 300, 200, 100], async function (el, i) {
     return new Promise((resolve, reject) => {
       setTimeout(function() {
         resolve(el*2);
@@ -50,31 +50,31 @@ void async function () {
 ```
 
 
-### reduce()
+### reduce(Array, function(previousValue, currentValue, index, array): Promise)
 ```reduce``` over promises serially
 ```js
 const promiseMtd = require('promise_mtd');
 
 void async function () {
-  var result = await promiseMtd.reduce([0, 1, 2, 3, 4], function (previousValue, currentValue, index, array) {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            resolve(previousValue + currentValue);
-          }, currentValue*1000);
-        });
-      }, 0);
+  const result = await promiseMtd.reduce([0, 1, 2, 3, 4], function (previousValue, currentValue, index, array) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(previousValue + currentValue);
+      }, currentValue*1000);
+    });
+  }, 0);
   }();
   console.log(result); // 10
 ```
 
 
-### filter(Array<any>, Function(el, index): Promise<Boolean>): Array<any>
+### filter(Array<any>, function(el, index): Promise<Boolean>): Array<any>
 ```filter``` over promises serially
 ```js
 const promiseMtd = require('promise_mtd');
 
 void async function () {
-  let res = await promiseMtd.filter([ 1, 2, 3, 4 ], function(time, i) {
+  const res = await promiseMtd.filter([ 1, 2, 3, 4 ], function(time, i) {
     return new Promise((resolve, reject) => {
       setTimeout(function() {
         resolve(i % 2 === 0);
@@ -85,24 +85,24 @@ void async function () {
 }();
 ```
 
-### find(Array, function(el, index))
+### find(Array, function(el, index): Promise)
 ```find``` over promises serially
 ```js
 const promiseMtd = require('promise_mtd');
 
 void async function () {
   const result = await promiseMtd.find([0, 1, 2, 3, 4], function (previousValue, currentValue, index, array) {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            resolve(el === 2);
-          }, el*1000);
-        });
-      });
-  }();
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(el === 2);
+      }, el*1000);
+    });
+  });
+}();
   console.log(result); // 2
 ```
 
-### parallel(Array<any>, { pool: number }, Function(el, index))
+### parallel(Array<any>, { pool: number }, function(el, index))
 Equivalent of ```Promise.all``` but with limit
 ```js
 const promiseMtd = require('promise_mtd');
@@ -121,7 +121,7 @@ void async function() {
 
 
 
-### transform(Array<any>, Function(el, index): Promise<any>): Array
+### transform(Array<any>, function(el, index): Promise<any>): Array
 Iterating over an array and filter over promises
 ```js
 const promiseMtd = require('promise_mtd');
@@ -176,7 +176,7 @@ void async function() {
 
 
 ### all(data: Array<Promise> | Object<{ key: Promise }>): Array<any> | Object<{ key: any }>
-```All``` over promises serially
+```All``` like ```Promise.all``` but it can handle object
 ```js
 const promiseMtd = require('promise_mtd');
 
@@ -204,7 +204,7 @@ void async function() {
 ```
 
 
-## Test
+## Tests
 ```sh
-npm run test
+npm test
 ```
