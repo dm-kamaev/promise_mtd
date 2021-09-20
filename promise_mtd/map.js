@@ -18,15 +18,3 @@ module.exports = function (data, promiseHandler) {
   }
   return start.then(() => list);
 };
-// EXAMPLE:
-// promiseMtd.map([3000, 2000, 1000], function(time, i) {
-//  return new Promise((resolve, reject) => {
-//    setTimeout(function() {
-//      console.log('HERE=', time, i);
-//      resolve('Result='+i);
-//      // reject(new Error('stop'));
-//    }, time);
-//  });
-// }).then(res => console.log(res)).catch(err => console.log(err));
-
-

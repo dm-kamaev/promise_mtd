@@ -8,6 +8,10 @@ promise_mtd.map = require('./promise_mtd/map.js');
 
 promise_mtd.filter = require('./promise_mtd/filter.js');
 
+promise_mtd.find = require('./promise_mtd/find.js');
+
+promise_mtd.reduce = require('./promise_mtd/reduce.js');
+
 promise_mtd.transform = require('./promise_mtd/transform.js');
 
 promise_mtd.async_while = promise_mtd.asyncWhile = require('./promise_mtd/async_while.js');

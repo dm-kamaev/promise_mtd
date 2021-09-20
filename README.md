@@ -1,7 +1,7 @@
 # promise_mtd
 Set of methods allowing to simplify work with promises in cycle. The library has support TypeScript.
 
-* Implementation of ```forEach```, ```map```, ```filter``` for working with array data when it's needed to apply asynchronous function to each element.
+* Implementation of ```forEach```, ```map```, ```filter```, ```reduce```, ```find``` for working with array data when it's needed to apply asynchronous function to each element.
 * Method ```transform``` allows to iterate asynchronously over an array similarly to ```map```, but also it can skip unnecessary data.
 * Implementation of cycle  while as ```asyncWhile```(while is reserved word) for using with promise.
 * Method ```parallel``` allows to run concurrently promises similarly to method ```Promise.all```, but with limit.
@@ -14,8 +14,8 @@ The library has no dependencies 😀.
 npm i promise_mtd -S
 ```
 
-### foreach(Array<any>, Function(el, index)) || forEach(Array<any>, Function(el, index))
-```Foreach``` over promises serially
+### forEach(Array, function(el, index))
+```forEach``` over promises serially
 ```js
 const promiseMtd = require('promise_mtd');
 
@@ -32,8 +32,8 @@ void async function () {
 ```
 
 
-### map(Array<any>, Function(el, index): Promise<any>)
-```Map``` over promises serially
+### map(Array<any>, function(el, index): Promise<any>): Promise<Array<any>>
+```map``` over promises serially
 ```js
 const promiseMtd = require('promise_mtd');
 
@@ -50,30 +50,65 @@ void async function () {
 ```
 
 
-### filter(Array<any>, Function(el, index): Promise<Boolean>)
-```Filter```
+### reduce()
+```reduce``` over promises serially
 ```js
 const promiseMtd = require('promise_mtd');
 
 void async function () {
-  let res = await promiseMtd.filter([ 0, 1, 2, 3 ], function(time, i) {
+  var result = await promiseMtd.reduce([0, 1, 2, 3, 4], function (previousValue, currentValue, index, array) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(previousValue + currentValue);
+          }, currentValue*1000);
+        });
+      }, 0);
+  }();
+  console.log(result); // 10
+```
+
+
+### filter(Array<any>, Function(el, index): Promise<Boolean>): Array<any>
+```filter``` over promises serially
+```js
+const promiseMtd = require('promise_mtd');
+
+void async function () {
+  let res = await promiseMtd.filter([ 1, 2, 3, 4 ], function(time, i) {
     return new Promise((resolve, reject) => {
       setTimeout(function() {
-        resolve(Boolean(i));
+        resolve(i % 2 === 0);
       }, time * 1000);
     });
   });
-  console.log(res); // [ 1, 2, 3 ]
+  console.log(res); // [ 2, 4 ]
 }();
 ```
 
-### parallel(Array<any>, Function(el, index))
+### find(Array, function(el, index))
+```find``` over promises serially
+```js
+const promiseMtd = require('promise_mtd');
+
+void async function () {
+  const result = await promiseMtd.find([0, 1, 2, 3, 4], function (previousValue, currentValue, index, array) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(el === 2);
+          }, el*1000);
+        });
+      });
+  }();
+  console.log(result); // 2
+```
+
+### parallel(Array<any>, { pool: number }, Function(el, index))
 Equivalent of ```Promise.all``` but with limit
 ```js
 const promiseMtd = require('promise_mtd');
 
 void async function() {
-  await promiseMtd.parallel([ 3000, 3000, 3000, 2000, 2000, 2000, 1000], 3, async function(el, i) {
+  await promiseMtd.parallel([ 3000, 3000, 3000, 2000, 2000, 2000, 1000], { pool: 3 }, async function(el, i) {
     return new Promise((resolve) => {
       setTimeout(() => {
         console.log(el);
@@ -86,7 +121,7 @@ void async function() {
 
 
 
-### transform(Array<any>, Function(el, index))
+### transform(Array<any>, Function(el, index): Promise<any>): Array
 Iterating over an array and filter over promises
 ```js
 const promiseMtd = require('promise_mtd');
@@ -105,18 +140,37 @@ void async function() {
 
 
 
-### asyncWhile(condition: Function(): Boolean, Function)
-```While``` over promises serially
+### asyncWhile(condition: () => boolean, function()) | asyncWhile(condition: () => Promise<boolean>)
+```while``` over promises serially
 ```js
 const promiseMtd = require('promise_mtd');
 
 void async function() {
   let i = 0;
-  await promiseMtd.asyncWhile(() => i < 5, async function () {
-    console.log(i);
-    i++;
+  let result = [];
+  await promiseMtd.asyncWhile(() => i < 10, function () {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        result.push(i++);
+        resolve();
+      }, i*1000);
+    });
   });
-  console.log(i); // 5
+  console.log(result); // [0,1,2,3,4,5,5,6,7,8,9]
+
+  // OR
+
+  i = 0
+  result = [];
+  await promiseMtd.asyncWhile(function () {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        result.push(i++);
+        resolve(i < 10);
+      }, i*1000);
+    });
+  });
+  console.log(result); // [0,1,2,3,4,5,5,6,7,8,9]
 }();
 ```
 
@@ -147,4 +201,10 @@ void async function() {
   // [ 2000, 1000 ]
   console.log(await promiseMtd.all([ t1, t2 ]));
 }();
+```
+
+
+## Test
+```sh
+npm run test
 ```

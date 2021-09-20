@@ -1,10 +1,10 @@
 {
   "name": "promise_mtd",
-  "version": "2.0.7",
-  "description": "Set of methods allowing simplify work with Promises in cycle. Methods: forEach, map, while, transform, parallel",
+  "version": "2.1.0",
+  "description": "Set of methods allowing simplify work with Promises in cycle. Methods: forEach, map, find, filter, reduce, while, transform, parallel, all",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx jest"
   },
   "types": "./index.d.ts",
   "keywords": [
@@ -20,6 +20,9 @@
     "fluent interface",
     "promise methods",
     "foreach",
+    "reduce",
+    "filter",
+    "find",
     "map",
     "while",
     "transform",
@@ -66,5 +69,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/dm-kamaev/promise_mtd.git"
+  },
+  "devDependencies": {
+    "jest": "27.2.0"
   }
 }
