@@ -1,5 +1,5 @@
 
-const filter = require('./filter.js');
+const { filter } = require('../index.js');
 
 describe('filter', function () {
 

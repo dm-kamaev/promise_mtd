@@ -1,5 +1,5 @@
 
-const parallel = require('./parallel.js');
+const { parallel } = require('../index.js');
 
 describe('parallel', function () {
 

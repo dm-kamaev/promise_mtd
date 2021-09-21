@@ -1,5 +1,5 @@
 
-const reduce = require('./reduce.js');
+const { reduce } = require('../index.js');
 
 describe('reduce', function () {
 

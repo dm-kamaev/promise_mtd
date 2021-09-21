@@ -1,5 +1,5 @@
 
-const find = require('./find.js');
+const { find } = require('../index.js');
 
 describe('find', function () {
 

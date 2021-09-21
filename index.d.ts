@@ -22,8 +22,11 @@ declare module 'promise_mtd' {
 
   export function find<Input = any>(data: Array<Input>, handler: (el: Input, index: number) => Promise<boolean>): Promise<Input>;
 
-  export function async_while(check: () => boolean, handler: () => void): Promise<null>;
-  export function asyncWhile(check: () => boolean, handler: () => void): Promise<null>;
+  export function async_while(check: () => boolean, handler: () => void, params?: { limit: number }): Promise<null>;
+  export function asyncWhile(check: () => boolean, handler: () => void, params?: { limit: number }): Promise<null>;
+
+  export function async_while(handler: () => Promise<boolean>, params?: { limit: number }): Promise<null>;
+  export function asyncWhile(handler: () => Promise<boolean>, params?: { limit: number }): Promise<null>;
 
   export function parallel<Input = any>(data: Array<Input>, pool: number, handler: (el: Input, index: number) => Promise<void>): void;
   export function parallel<Input = any>(data: Array<Input>, params: { pool: number }, handler: (el: Input, index: number) => Promise<void>): void;

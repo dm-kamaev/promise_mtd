@@ -1,5 +1,5 @@
 
-const map = require('./map.js');
+const { map } = require('../index.js');
 
 describe('map', function () {
 

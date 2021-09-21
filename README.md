@@ -19,16 +19,14 @@ npm i promise_mtd -S
 ```js
 const promiseMtd = require('promise_mtd');
 
-void async function () {
-  await promiseMtd.forEach([ 300, 200, 100], async function (el, i) {
-    return new Promise((resolve, reject) => {
-      setTimeout(function() {
-        console.log(el); // 300 then 200 then 100
-        resolve();
-      }, el+i);
-    });
+await promiseMtd.forEach([ 300, 200, 100], async function (el, i) {
+  return new Promise((resolve, reject) => {
+    setTimeout(function() {
+      console.log(el); // 300 then 200 then 100
+      resolve();
+    }, el+i);
   });
-}();
+});
 ```
 
 
@@ -37,16 +35,14 @@ void async function () {
 ```js
 const promiseMtd = require('promise_mtd');
 
-void async function () {
-  const res = await promiseMtd.map([ 300, 200, 100], async function (el, i) {
-    return new Promise((resolve, reject) => {
-      setTimeout(function() {
-        resolve(el*2);
-      }, el*2);
-    });
+const result = await promiseMtd.map([ 300, 200, 100], async function (el, i) {
+  return new Promise((resolve, reject) => {
+    setTimeout(function() {
+      resolve(el*2);
+    }, el*2);
   });
-  console.log(res); // [ 600, 400, 200 ]
-}();
+});
+console.log(result); // [ 600, 400, 200 ]
 ```
 
 
@@ -55,16 +51,14 @@ void async function () {
 ```js
 const promiseMtd = require('promise_mtd');
 
-void async function () {
-  const result = await promiseMtd.reduce([0, 1, 2, 3, 4], function (previousValue, currentValue, index, array) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(previousValue + currentValue);
-      }, currentValue*1000);
-    });
-  }, 0);
-  }();
-  console.log(result); // 10
+const result = await promiseMtd.reduce([0, 1, 2, 3, 4], function (previousValue, currentValue, index, array) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(previousValue + currentValue);
+    }, currentValue*1000);
+  });
+}, 0);
+console.log(result); // 10
 ```
 
 
@@ -73,16 +67,14 @@ void async function () {
 ```js
 const promiseMtd = require('promise_mtd');
 
-void async function () {
-  const res = await promiseMtd.filter([ 1, 2, 3, 4 ], function(time, i) {
-    return new Promise((resolve, reject) => {
-      setTimeout(function() {
-        resolve(i % 2 === 0);
-      }, time * 1000);
-    });
+const result = await promiseMtd.filter([ 1, 2, 3, 4 ], function(time, i) {
+  return new Promise((resolve, reject) => {
+    setTimeout(function() {
+      resolve(i % 2 === 0);
+    }, time * 1000);
   });
-  console.log(res); // [ 2, 4 ]
-}();
+});
+console.log(result); // [ 2, 4 ]
 ```
 
 ### find(Array, function(el, index): Promise)
@@ -90,16 +82,14 @@ void async function () {
 ```js
 const promiseMtd = require('promise_mtd');
 
-void async function () {
-  const result = await promiseMtd.find([0, 1, 2, 3, 4], function (previousValue, currentValue, index, array) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(el === 2);
-      }, el*1000);
-    });
+const result = await promiseMtd.find([0, 1, 2, 3, 4], function (previousValue, currentValue, index, array) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(el === 2);
+    }, el*1000);
   });
-}();
-  console.log(result); // 2
+});
+console.log(result); // 2
 ```
 
 ### parallel(Array<any>, { pool: number }, function(el, index))
@@ -107,16 +97,14 @@ Equivalent of ```Promise.all``` but with limit
 ```js
 const promiseMtd = require('promise_mtd');
 
-void async function() {
-  await promiseMtd.parallel([ 3000, 3000, 3000, 2000, 2000, 2000, 1000], { pool: 3 }, async function(el, i) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        console.log(el);
-        resolve();
-      }, t);
-    });
+await promiseMtd.parallel([ 3000, 3000, 3000, 2000, 2000, 2000, 1000], { pool: 3 }, async function(el, i) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log(el);
+      resolve();
+    }, t);
   });
-}();
+});
 ```
 
 
@@ -126,52 +114,57 @@ Iterating over an array and filter over promises
 ```js
 const promiseMtd = require('promise_mtd');
 
-void async function() {
-  let res = await promiseMtd.transform([ 1, 2, 3, 4 ], function (el, i) {
-    if (el <= 2) {
-      return new Promise((resolve) => {
-        setTimeout(() => resolve({ el, i }), 1000);
-      });
-    }
-  });
-  console.log(res); // [ { el: 1, i: 0 }, { el: 2, i: 1 } ]
-}();
+const res = await promiseMtd.transform([ 1, 2, 3, 4 ], function (el, i) {
+  if (el <= 2) {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve({ el, i }), 1000);
+    });
+  }
+});
+console.log(res); // [ { el: 1, i: 0 }, { el: 2, i: 1 } ]
 ```
 
 
 
-### asyncWhile(condition: () => boolean, function()) | asyncWhile(condition: () => Promise<boolean>)
-```while``` over promises serially
+### asyncWhile(condition: () => boolean, function(), params?: { limit: number }) | asyncWhile(condition: () => Promise<boolean>, params?: { limit: number })
+```while``` over promises serially. This method supports limit of iterations (protection from forever cycle) via third parameter&
 ```js
 const promiseMtd = require('promise_mtd');
 
-void async function() {
-  let i = 0;
-  let result = [];
-  await promiseMtd.asyncWhile(() => i < 10, function () {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        result.push(i++);
-        resolve();
-      }, i*1000);
-    });
+let i = 0;
+let result = [];
+await promiseMtd.asyncWhile(() => i < 10, function () {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      result.push(i++);
+      resolve();
+    }, i*1000);
   });
-  console.log(result); // [0,1,2,3,4,5,5,6,7,8,9]
+});
+console.log(result); // [0,1,2,3,4,5,5,6,7,8,9]
 
-  // OR
+// OR
 
-  i = 0
-  result = [];
-  await promiseMtd.asyncWhile(function () {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        result.push(i++);
-        resolve(i < 10);
-      }, i*1000);
-    });
+i = 0
+result = [];
+await promiseMtd.asyncWhile(function () {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      result.push(i++);
+      resolve(i < 10);
+    }, i*1000);
   });
-  console.log(result); // [0,1,2,3,4,5,5,6,7,8,9]
-}();
+});
+console.log(result); // [0,1,2,3,4,5,5,6,7,8,9]
+
+// Example: forever cycle, method will throw error
+await promiseMtd.asyncWhile(() => true, function () {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, i*1000);
+  });
+}, { limit: 100 }); // protection from forever cycle
 ```
 
 
@@ -180,27 +173,25 @@ void async function() {
 ```js
 const promiseMtd = require('promise_mtd');
 
-void async function() {
-  var t1 = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(2000);
-    }, 2000);
-  });
+const t1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(2000);
+  }, 2000);
+});
 
-  var t2 = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(1000);
-    }, 1000);
-  });
+const t2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(1000);
+  }, 1000);
+});
 
 
-  // { t1: 2000, t2: 1000 }
-  console.log(await promiseMtd.all({ t1, t2 }));
+// { t1: 2000, t2: 1000 }
+console.log(await promiseMtd.all({ t1, t2 }));
 
-  // as Promise.all
-  // [ 2000, 1000 ]
-  console.log(await promiseMtd.all([ t1, t2 ]));
-}();
+// as Promise.all
+// [ 2000, 1000 ]
+console.log(await promiseMtd.all([ t1, t2 ]));
 ```
 
 
