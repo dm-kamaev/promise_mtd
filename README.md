@@ -1,4 +1,7 @@
 # promise_mtd
+
+[![Actions Status](https://github.com/dm-kamaev/promise_mtd/workflows/Run_tests/badge.svg)]()
+
 Set of methods allowing to simplify work with promises in cycle. The library has support TypeScript.
 
 * Implementation of ```forEach```, ```map```, ```filter```, ```reduce```, ```find``` for working with array data when it's needed to apply asynchronous function to each element.
