@@ -1,6 +1,6 @@
 # promise_mtd
 
-[![Actions Status](https://github.com/dm-kamaev/promise_mtd/workflows/Run_tests/badge.svg)]()
+[![Actions Status](https://github.com/dm-kamaev/promise_mtd/workflows/Build/badge.svg)](https://github.com/dm-kamaev/promise_mtd/actions)
 
 Set of methods allowing to simplify work with promises in cycle. The library has support TypeScript.
 

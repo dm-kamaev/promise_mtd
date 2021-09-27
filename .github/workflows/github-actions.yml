@@ -1,4 +1,4 @@
-name: Run_tests
+name: Build
 on: [push]
 jobs:
   Explore-GitHub-Actions:
