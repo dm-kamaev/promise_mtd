@@ -28,8 +28,7 @@ declare module 'promise_mtd' {
   export function async_while(handler: () => Promise<boolean>, params?: { limit: number }): Promise<null>;
   export function asyncWhile(handler: () => Promise<boolean>, params?: { limit: number }): Promise<null>;
 
-  export function parallel<Input = any>(data: Array<Input>, pool: number, handler: (el: Input, index: number) => Promise<void>): void;
-  export function parallel<Input = any>(data: Array<Input>, params: { pool: number }, handler: (el: Input, index: number) => Promise<void>): void;
+  export function parallel<Input = any>(data: Array<Input>, params: { pool: number } | number, handler: (el: Input, index: number) => Promise<void>): void;
 
   export function all<T>(list: T): Promise<UnwrapListOrObject<T>>;
   export function all<T extends Object>(list: T): Promise<UnwrapListOrObject<T>>;
