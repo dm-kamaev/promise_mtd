@@ -1,5 +1,7 @@
 'use strict';
 
+const Stop = require('../lib/Stop.js');
+
 /**
  * find –– call promise step by step, and push res in array
  * @param  {Array<any>} data
@@ -29,13 +31,3 @@ module.exports = function (data, promiseHandler) {
 };
 
 
-class Stop extends Error {
-  constructor(val) {
-    super(val);
-    this._val = val;
-  }
-
-  get value() {
-    return this._val;
-  }
-}

@@ -1,5 +1,5 @@
 
-const { setImmediate } = require('../index.js');
+const { setImmediate } = require('../../index.js');
 
 describe('setImmediate', function () {
 

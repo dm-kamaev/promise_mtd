@@ -1,5 +1,5 @@
 
-const { all } = require('../index.js');
+const { all } = require('../../index.js');
 
 describe('all', function () {
 

@@ -3,5 +3,6 @@ module.exports = {
   verbose: true,
   testEnvironment: 'node',
   automock: false,
-  setupFilesAfterEnv: ['./jest-setup.js']
+  setupFilesAfterEnv: ['./jest-setup.js'],
+  coverageReporters: ['json-summary', 'json-summary', 'text', 'lcov']
 };

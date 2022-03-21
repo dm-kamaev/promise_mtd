@@ -72,5 +72,8 @@
   },
   "devDependencies": {
     "jest": "27.2.0"
+  },
+  "dependencies": {
+    "coverage-badges": "1.0.5"
   }
 }

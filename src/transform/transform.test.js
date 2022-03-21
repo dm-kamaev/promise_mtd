@@ -1,5 +1,5 @@
 
-const { transform } = require('../index.js');
+const { transform } = require('../../index.js');
 
 describe('transform', function () {
 

@@ -1,5 +1,5 @@
 
-const { async_while } = require('../index.js');
+const { async_while } = require('../../index.js');
 
 describe('async_while', function () {
 

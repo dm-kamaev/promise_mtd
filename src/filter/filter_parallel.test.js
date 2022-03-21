@@ -1,10 +1,10 @@
 
-const { filter } = require('../index.js');
+const { filterParallel } = require('../../index.js');
 
-describe('filter', function () {
+describe('filterParallel', function () {
 
   it('only even', async function () {
-    const output = await filter([1,2,3,4,5,6], function (el) {
+    const output = await filterParallel([1,2,3,4,5,6], { pool: 3 }, function (el) {
       return new Promise((resolve) => {
         setTimeout(() => {
           resolve((el % 2) === 0);

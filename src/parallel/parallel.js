@@ -2,6 +2,7 @@
 
 /**
  * parallel
+ * @deprecated
  * @param  {Array<any>} data
  * @param  {number | { pool: number }} params
  * @param  {function(el, i): Promise } promise_handler]
@@ -10,7 +11,7 @@
 module.exports = function (data, params, promise_handler) {
   let pool;
   if (typeof params === 'number') {
-    console.warn('Warning: You shoulds use { pool: ' + params+' } instead of simple number');
+    console.warn(new Error('Warning: You shoulds use { pool: ' + params+' } instead of simple number'));
     pool = params;
   } else {
     pool = params.pool;

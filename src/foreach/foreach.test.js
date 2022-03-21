@@ -1,5 +1,5 @@
 
-const { forEach } = require('../index.js');
+const { forEach } = require('../../index.js');
 
 describe('forEach', function () {
 
