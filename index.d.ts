@@ -27,13 +27,10 @@ declare module 'promise_mtd' {
   export function find<Input = any>(data: Array<Input>, handler: (el: Input, index: number) => Promise<boolean>): Promise<Input>;
   export function findParallel<Input = any>(data: Array<Input>, params: { pool: number }, handler: (el: Input, index: number) => Promise<boolean>): Promise<Input>;
 
-  export function async_while(check: () => boolean, handler: () => void, params?: { limit: number }): Promise<null>;
-  export function asyncWhile(check: () => boolean, handler: () => void, params?: { limit: number }): Promise<null>;
+  export function while_(check: () => boolean, handler: () => void, params?: { limit: number }): Promise<null>;
+  export function while_(handler: () => Promise<boolean>, params?: { limit: number }): Promise<null>;
 
-  export function async_while(handler: () => Promise<boolean>, params?: { limit: number }): Promise<null>;
-  export function asyncWhile(handler: () => Promise<boolean>, params?: { limit: number }): Promise<null>;
-
-  export function parallel<Input = any>(data: Array<Input>, params: { pool: number } | number, handler: (el: Input, index: number) => Promise<void>): void;
+  export function retry<T extends (...args: any) => any, E extends { new(...arg: any): any }>(fn: T, settings: { attemp: number, delay?: { ms: number }, ifError?: E }): (...argv: Parameters<T>) => Promise<ReturnType<T>>;
 
   export function all<T>(list: T): Promise<UnwrapListOrObject<T>>;
   export function all<T extends Object>(list: T): Promise<UnwrapListOrObject<T>>;

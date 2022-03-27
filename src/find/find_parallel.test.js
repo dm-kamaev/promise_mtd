@@ -34,4 +34,19 @@ describe('findParallel', function () {
     }
   });
 
+  it('call without pool', async function () {
+
+    await expect(async () => {
+      return await findParallel([1, 2, 3, 4, 5, 6], function (el) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            if (el === 4) {
+              reject(new Error('stop'));
+            } else {
+              resolve();
+            }
+          }, el * 1000);
+        });
+    })}).rejects.toThrow(Error);
+  });
 });

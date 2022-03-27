@@ -18,5 +18,16 @@ describe('forEachParallel', function () {
     expect(result).toEqual([1, 0.5, 3, 6, 7]);
   });
 
+  it('call without pool', async function () {
+
+    await expect(async () => { return await forEachParallel([6, 1, 3, 0.5, 7], function (el) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, el * 1000);
+      });
+    })}).rejects.toThrow(Error);
+  });
+
 
 });

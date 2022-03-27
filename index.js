@@ -19,11 +19,11 @@ promise_mtd.reduce = require('./src/reduce/reduce.js');
 promise_mtd.transform = require('./src/transform/transform.js');
 promise_mtd.transformParallel = require('./src/transform/transform_parallel.js');
 
-promise_mtd.async_while = promise_mtd.asyncWhile = require('./src/async_while/async_while.js');
-
-promise_mtd.parallel = require('./src/parallel/parallel.js');
+promise_mtd.while_ = require('./src/while/while.js');
 
 promise_mtd.all = require('./src/all/all.js');
+
+promise_mtd.retry = require('./src/retry/retry.js');
 
 promise_mtd.setImmediate = promise_mtd.set_immediate = require('./src/setImmediate/setImmediate.js');
 
