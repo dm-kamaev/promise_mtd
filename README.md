@@ -2,8 +2,8 @@
 
 [![Actions Status](https://github.com/dm-kamaev/promise_mtd/workflows/Build/badge.svg)](https://github.com/dm-kamaev/promise_mtd/actions) ![Coverage](https://github.com/dm-kamaev/promise_mtd/blob/master/badges/coverage.svg)
 
-Set of methods allowing simplify work with promises in cycle such as: `forEach, map, find, filter, reduce, while, transform`. Besides there are methods for comfortable work with promises or asynchronous  operations -  `all, retry, timeout`.
-The library has support TypeScript.
+Set of methods allowing to simplify work with promises in cycle: `forEach, map, find, filter, reduce, while, transform`. Besides there are methods for comfortable work with promises or asynchronous  operations:  `all, retry, timeout`.
+The library supports TypeScript.
 
 Methods:
   * `forEach`
@@ -21,16 +21,13 @@ Methods:
   * `retry`
   * `timeout`
 
-List:
-* Implementation of ```forEach```, ```map```, ```filter```, ```reduce```, ```find``` for working with array data when it's needed to apply asynchronous function to each element.
+The library has no dependencies 😀
 
-The library has no dependencies 😀.
-
-
+Install:
 ```sh
 npm i promise_mtd -S
 ```
- How import:
+ How to import:
 ```js
 const promiseMtd = require('promise_mtd');
 
@@ -38,7 +35,7 @@ import promiseMtd from 'promise_mtd';
 ```
 
 ### forEach(Array, function(el, index))
-It's analog standard method `forEach` of array, but for asynchronous sequence actions based on promises.
+It's analog of standard method `forEach` of array, but for asynchronous sequent actions based on promises.
 ```js
 await promiseMtd.forEach([ 300, 200, 100], async function (el, i) {
   await promiseMtd.timeout(el); // inbuilt promifisified version for setTimeout
@@ -47,7 +44,7 @@ await promiseMtd.forEach([ 300, 200, 100], async function (el, i) {
 ```
 
 ### forEachParallel(Array, { pool: number }, function(el, index))
-It's method same as `forEach`, but actions executed parallel. The `pool` is maximum number of promises executed parallel. In other words, number promises which may be executed simutalneously equal or less value of `pool`.
+It's the same method as `forEach`, but actions are executed in parallel. The `pool` is the maximum number of promises executed in parallel. In other words, number of promises which may be executed simutalneously is equal or less than value of `pool`.
 ```js
 
 await promiseMtd.forEach([ 300, 200, 100], { pool: 2 }, async function (el, i) {
@@ -58,7 +55,7 @@ await promiseMtd.forEach([ 300, 200, 100], { pool: 2 }, async function (el, i) {
 
 
 ### map(Array<any>, function(el, index): Promise<any>): Promise<Array<any>>
-It's analog standard method `map` of array, but for asynchronous sequence actions based on promises.
+It's analog of standard method `map` of array, but for asynchronous sequent actions based on promises.
 ```js
 const result = await promiseMtd.map([ 300, 200, 100 ], async function (el, i) {
   await promiseMtd.timeout(el); // inbuilt promifisified version for setTimeout
@@ -68,7 +65,7 @@ console.log(result); // [ 600, 400, 200 ]
 ```
 
 ### mapParallel(Array<any>, { pool: number }, function(el, index): Promise<any>): Promise<Array<any>>
-It's method same as `map`, but actions executed parallel. The `pool` is maximum number of promises executed parallel. In other words, number promises which may be executed simutalneously equal or less value of `pool`.
+It's the same method as `map`, but actions are executed in parallel. The `pool` is the maximum number of promises executed in parallel. In other words, number of promises which may be executed simutalneously is equal or less than value of `pool`.
 ```js
 const result = await promiseMtd.mapParallel([ 300, 200, 100 ], { pool: 2 }, async function (el, i) {
   await promiseMtd.timeout(el); // inbuilt promifisified version for setTimeout
@@ -79,7 +76,7 @@ console.log(result); // [ 600, 400, 200 ]
 
 
 ### reduce(Array, function(previousValue, currentValue, index, array): Promise)
-It's analog standard method `reduce` of array, but for asynchronous sequence actions based on promises.
+It's analog of standard method `reduce` of array, but for asynchronous sequent actions based on promises.
 ```js
 const result = await promiseMtd.reduce([0, 1, 2, 3, 4], async function (previousValue, currentValue, index, array) {
   await promiseMtd.timeout(currentValue * 1000); // inbuilt promifisified version for setTimeout
@@ -90,7 +87,7 @@ console.log(result); // 10
 
 
 ### filter(Array<any>, function(el, index): Promise<Boolean>): Array<any>
-It's analog standard method `filter` of array, but for asynchronous sequence actions based on promises.
+It's analog of standard method `filter` of array, but for asynchronous sequent actions based on promises.
 ```js
 const result = await promiseMtd.filter([ 1, 2, 3, 4 ], async function(el, i) {
   await promiseMtd.timeout(el * 1000); // inbuilt promifisified version for setTimeout
@@ -100,7 +97,7 @@ console.log(result); // [ 2, 4 ]
 ```
 
 ### filterParallel(Array, { pool: number }, function(el, index): Promise<Boolean>): Array<any>
-It's method same as `filter`, but actions executed parallel. The `pool` is maximum number of promises executed parallel. In other words, number promises which may be executed simutalneously equal or less value of `pool`.
+It's the same method as `filter`, but actions are executed in parallel. The `pool` is the maximum number of promises executed in parallel. In other words, number of promises which may be executed simutalneously is equal or less than value of `pool`.
 ```js
 const result = await promiseMtd.filterParallel([ 1, 2, 3, 4 ], { pool: 2 }, async function(el, i) {
   await promiseMtd.timeout(el * 1000); // inbuilt promifisified version for setTimeout
@@ -110,7 +107,7 @@ console.log(result); // [ 2, 4 ]
 ```
 
 ### find(Array, function(el, index): Promise): any
-It's analog standard method `find` of array, but for asynchronous sequence actions based on promises.
+It's analog of standard method `find` of array, but for asynchronous sequent actions based on promises.
 ```js
 const result = await promiseMtd.find([0, 1, 2, 3, 4], async function (el, i) {
   await promiseMtd.timeout(el * 1000); // inbuilt promifisified version for setTimeout
@@ -120,7 +117,7 @@ console.log(result); // 2
 ```
 
 ### findParallel(Array, { pool: number }, function(el, index): Promise): any
-It's method same as `find`, but actions executed parallel. The `pool` is maximum number of promises executed parallel. In other words, number promises which may be executed simutalneously equal or less value of `pool`.
+It's the same method as `find`, but actions are executed in parallel. The `pool` is the maximum number of promises executed in parallel. In other words, number of promises which may be executed simutalneously is equal or less than value of `pool`.
 ```js
 const result = await promiseMtd.findParallel([0, 1, 2, 3, 4], { pool: 2 }, async function (el, i) {
   await promiseMtd.timeout(el * 1000); // inbuilt promifisified version for setTimeout
@@ -131,7 +128,7 @@ console.log(result); // 2
 
 
 ### transform(Array, function(el, index): Promise): Array
-Method `transform` allows to iterate asynchronously over an array similarly to `map`, but also it can skip unnecessary data. Iterating over an array and filter over promises.
+Method `transform` allows to iterate asynchronously over an array similarly to `map`, but also it can skip unnecessary data.
 ```js
 const res = await promiseMtd.transform([ 1, 2, 3, 4 ], async function (el, i) {
   if (el <= 2) {
@@ -143,7 +140,7 @@ console.log(res); // [ { el: 1, i: 0 }, { el: 2, i: 1 } ]
 ```
 
 ### transformParallel(Array, { pool: number }, function(el, index): Promise): Array
-It's method same as `transform`, but actions executed parallel. The `pool` is maximum number of promises executed parallel. In other words, number promises which may be executed simutalneously equal or less value of `pool`.
+It's the same method  as `transform`, but actions are executed in parallel. The `pool` is the maximum number of promises executed in parallel. In other words, number of promises which may be executed simutalneously is equal or less than value of `pool`.
 ```js
 const res = await promiseMtd.transformParallel([ 1, 2, 3, 4 ], { pool: 2 }, async function (el, i) {
   if (el <= 2) {
@@ -156,10 +153,10 @@ console.log(res); // [ { el: 1, i: 0 }, { el: 2, i: 1 } ]
 
 
 ### while_(condition: () => boolean, function(), params?: { limit: number }) | while_(condition: () => Promise<boolean>, params?: { limit: number })
-Implementation of cycle `while` as `while_` (while is reserved word) for using with promise.
-`while_` over promises serially. This method supports limit of iterations (protection from forever cycle) via third parameter.
+Implementation of cycle `while` as `while_` (while is reserved word in JavaScript) for using with promise.
+`while_` iterates over promises sequentially. This method supports limit of iterations (protection from forever cycle) via third parameter.
 
-Example with two arguments: first argument is function which return condition, second is asynchronous action.
+Example with two arguments: the first argument is function which returns result of condition, the second is asynchronous action.
 ```js
 let i = 0;
 let result = [];
@@ -170,7 +167,7 @@ await promiseMtd.while_(() => i < 10, async function () {
 console.log(result); // [0,1,2,3,4,5,5,6,7,8,9]
 ```
 
-Example with one argument, asynchronous function is executing until then will return false.
+Example with one argument, asynchronous function is executed until it returns `false`.
 ```js
 let i = 0
 let result = [];
@@ -209,10 +206,10 @@ console.log(await promiseMtd.all([ t1, t2 ]));
 
 
 ### retry(fn: Function, { attempt: number, delay?: { ms: number }, ifError: Error }): Function
-This method allows create wrapper for asynchronous function which repeat calling if it return error.
-* `attempt`is parameter which setting number of attempts for executing.
-* `delay.ms` is parameter which setting number milliseconds for delaying between attempts.
-* `ifError`  is parameter which setting class of errors because of which function must be called repeatedly. In other words, if your function throw error which is not instance of `ifError` then it will throwing error immediately.
+This method allows to create wrapper for asynchronous function which repeats calling if the function returns an error.
+* `attempt`is parameter which sets number of attempts for executing.
+* `delay.ms` is parameter which sets number of milliseconds for delaying between attempts.
+* `ifError`  is parameter which sets class of errors because of which function must be called repeatedly. In other words, if your function throw error which is not instance of `ifError` then it will throw error immediately.
 ```js
 function req() {
   return axios.get('http://example.com/inreliable-path');
@@ -222,13 +219,13 @@ const request = promiseMtd.retry(req, { attempt: 3 });
 // throw error after 3 attempts
 await request();
 ```
-This code throws error after 3 attempts and make 300 ms delaying before every attempt.
+This code throws error after 3 attempts and makes 300 ms delay before every attempt.
 ```js
 const request = promiseMtd.retry(req, { attempt: 3, delay: { ms: 300 } });
 await request();
 ```
 
-This code make retry if error type instance of `RateLimitError` otherwise throw error immediately.
+This code makes retry if error type instance of `RateLimitError` otherwise throws error immediately.
 ```js
 
 class RateLimitError extends Error {}
