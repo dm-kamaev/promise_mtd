@@ -2,7 +2,8 @@
 
 [![Actions Status](https://github.com/dm-kamaev/promise_mtd/workflows/Build/badge.svg)](https://github.com/dm-kamaev/promise_mtd/actions) ![Coverage](https://github.com/dm-kamaev/promise_mtd/blob/master/badges/coverage.svg)
 
-Set of methods allowing to simplify work with promises in cycle. The library has support TypeScript.
+Set of methods allowing simplify work with promises in cycle such as: `forEach, map, find, filter, reduce, while, transform`. Besides there are methods for comfortable work with promises or asynchronous  operations -  `all, retry, timeout`.
+The library has support TypeScript.
 
 Methods:
   * `forEach`
@@ -47,7 +48,6 @@ await promiseMtd.forEach([ 300, 200, 100], async function (el, i) {
 
 ### forEachParallel(Array, { pool: number }, function(el, index))
 It's method same as `forEach`, but actions executed parallel. The `pool` is maximum number of promises executed parallel. In other words, number promises which may be executed simutalneously equal or less value of `pool`.
-Method `parallel` allows to run concurrently promises similarly to method ```Promise.all```, but with limit.
 ```js
 
 await promiseMtd.forEach([ 300, 200, 100], { pool: 2 }, async function (el, i) {
@@ -109,7 +109,7 @@ const result = await promiseMtd.filterParallel([ 1, 2, 3, 4 ], { pool: 2 }, asyn
 console.log(result); // [ 2, 4 ]
 ```
 
-### find(Array, function(el, index): Promise)
+### find(Array, function(el, index): Promise): any
 It's analog standard method `find` of array, but for asynchronous sequence actions based on promises.
 ```js
 const result = await promiseMtd.find([0, 1, 2, 3, 4], async function (el, i) {
@@ -119,7 +119,7 @@ const result = await promiseMtd.find([0, 1, 2, 3, 4], async function (el, i) {
 console.log(result); // 2
 ```
 
-### findParallel(Array, { pool: number }, function(el, index): Promise)
+### findParallel(Array, { pool: number }, function(el, index): Promise): any
 It's method same as `find`, but actions executed parallel. The `pool` is maximum number of promises executed parallel. In other words, number promises which may be executed simutalneously equal or less value of `pool`.
 ```js
 const result = await promiseMtd.findParallel([0, 1, 2, 3, 4], { pool: 2 }, async function (el, i) {
@@ -130,7 +130,7 @@ console.log(result); // 2
 ```
 
 
-### transform(Array, function(el, index): Promise<any>): Array
+### transform(Array, function(el, index): Promise): Array
 Method `transform` allows to iterate asynchronously over an array similarly to `map`, but also it can skip unnecessary data. Iterating over an array and filter over promises.
 ```js
 const res = await promiseMtd.transform([ 1, 2, 3, 4 ], async function (el, i) {
@@ -142,7 +142,7 @@ const res = await promiseMtd.transform([ 1, 2, 3, 4 ], async function (el, i) {
 console.log(res); // [ { el: 1, i: 0 }, { el: 2, i: 1 } ]
 ```
 
-### transformParallel(Array, { pool: number }, function(el, index): Promise<any>): Array
+### transformParallel(Array, { pool: number }, function(el, index): Promise): Array
 It's method same as `transform`, but actions executed parallel. The `pool` is maximum number of promises executed parallel. In other words, number promises which may be executed simutalneously equal or less value of `pool`.
 ```js
 const res = await promiseMtd.transformParallel([ 1, 2, 3, 4 ], { pool: 2 }, async function (el, i) {
