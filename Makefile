@@ -1,3 +1,6 @@
+publish:
+	npm publish --access public
+
 test:
 	npx jest --coverage
 
