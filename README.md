@@ -153,7 +153,7 @@ console.log(res); // [ { el: 1, i: 0 }, { el: 2, i: 1 } ]
 
 
 ### while_(condition: () => boolean, function(), params?: { limit: number }) | while_(condition: () => Promise<boolean>, params?: { limit: number })
-Implementation of cycle `while` as `while_` (while is reserved word in JavaScript) for using with promise.
+Implementation of cycle `while` as `while_` (`while` is reserved word in JavaScript) for using with promise.
 `while_` iterates over promises sequentially. This method supports limit of iterations (protection from forever cycle) via third parameter.
 
 Example with two arguments: the first argument is function which returns result of condition, the second is asynchronous action.

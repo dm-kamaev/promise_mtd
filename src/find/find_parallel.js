@@ -1,7 +1,5 @@
 'use strict';
 
-const Stop = require('../lib/Stop.js');
-
 /**
  * findParallel
  * @param  {Array<any>} data
@@ -17,16 +15,17 @@ module.exports = function (data, params, promise_handler) {
     throw new Error('required pool');
   }
 
-  let found = false;
+  let result = undefined;
+  let stop = false;
   const handler = (res, el) => {
-    if (res) {
-      found = true;
-      throw new Stop(el);
+    if (!stop && res) {
+      stop = true;
+      result = el;
     }
   }
 
   const next = () => {
-    if (found) {
+    if (stop) {
       return;
     } else if (current in data) {
       const el = data[current];
@@ -39,8 +38,8 @@ module.exports = function (data, params, promise_handler) {
   };
 
 
-  var current = pool;
-  var arr = [];
+  let current = pool;
+  const arr = [];
   for (let i = 0, l = data.length; i < l; i++) {
     if (i < pool) {
       arr.push(
@@ -51,11 +50,5 @@ module.exports = function (data, params, promise_handler) {
     }
   }
 
-  return Promise.all(arr).catch(err => {
-    if (err instanceof Stop) {
-      return err.value;
-    } else {
-      throw err;
-    }
-  });
+  return Promise.all(arr).then(() => result)
 };

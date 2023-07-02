@@ -18,8 +18,9 @@ declare module 'promise_mtd' {
 
   export function reduce<Result = any, Input = any>(data: Array<Input>, handler: (previousValue: Input, currentValue: Input, index: number, array: Array<Input>) => Promise<Input>, initialValue: Input): Promise<Input>;
 
-  export function transform<Result = any, Input = any>(data: Array<Input>, handler: (el: Input, index: number) => Promise<Result> | null | undefined): Promise<Array<Result>>;
-  export function transformParallel<Result = any, Input = any>(data: Array<Input>, params: { pool: number }, handler: (el: Input, index: number) => Promise<Result> | null | undefined): Promise<Array<Result>>;
+
+  export function transform<Result = any, Input = any>(data: Array<Input>, handler: (el: Input, index: number) => Promise<Result> | null | undefined): Promise<Array<NonNullable<Result>>>;
+  export function transformParallel<Result = any, Input = any>(data: Array<Input>, params: { pool: number }, handler: (el: Input, index: number) => Promise<Result> | null | undefined): Promise<Array<NonNullable<Result>>>;
 
   export function filter<Input = any>(data: Array<Input>, handler: (el: Input, index: number) => Promise<boolean>): Promise<Array<Input>>;
   export function filterParallel<Input = any>(data: Array<Input>, params: { pool: number }, handler: (el: Input, index: number) => Promise<boolean>): Promise<Array<Input>>;

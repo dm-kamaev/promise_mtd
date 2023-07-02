@@ -1,7 +1,5 @@
 'use strict';
 
-const Stop = require('../lib/Stop.js');
-
 /**
  * find –– call promise step by step, and push res in array
  * @param  {Array<any>} data
@@ -9,25 +7,26 @@ const Stop = require('../lib/Stop.js');
  * @return {Promise<any> | Promise<undefined>}
  */
 module.exports = function (data, promiseHandler) {
-  var start = Promise.resolve();
+  let start = Promise.resolve();
+  let stop = false;
+  let found = undefined;
+
   for (let i = 0, l = data.length; i < l; i++) {
     let el = data[i];
     start = start.then(() => {
+      if (stop) {
+        return;
+      }
       return promiseHandler(el, i);
     }).then((res) => {
-      if (res) {
-        throw new Stop(el);
+      if (!stop && res) {
+        found = el;
+        stop = true;
       }
     });
   }
 
-  return start.then(() => list).catch(err => {
-    if (err instanceof Stop) {
-      return err.value;
-    } else {
-      throw err;
-    }
-  });
+  return start.then(() => found);
 };
 
 
