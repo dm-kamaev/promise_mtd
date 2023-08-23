@@ -31,7 +31,7 @@ declare module 'promise_mtd' {
   export function while_(check: () => boolean, handler: () => void, params?: { limit: number }): Promise<null>;
   export function while_(handler: () => Promise<boolean>, params?: { limit: number }): Promise<null>;
 
-  export function retry<T extends (...args: any) => any, E extends { new(...arg: any): any }>(fn: T, settings: { attemp: number, delay?: { ms: number }, ifError?: E }): (...argv: Parameters<T>) => Promise<ReturnType<T>>;
+  export function retry<T extends (...args: any) => Promise<any>, E extends { new(...arg: any): any }>(fn: T, settings: { attemp: number, delay?: { ms: number }, ifError?: E }): (...argv: Parameters<T>) => Promise<ReturnType<T>>;
 
   export function all<T>(list: T): Promise<UnwrapListOrObject<T>>;
   export function all<T extends Object>(list: T): Promise<UnwrapListOrObject<T>>;

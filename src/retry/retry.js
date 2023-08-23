@@ -19,34 +19,26 @@ attemp = 3, timeout = 3 * 100ms
  */
 module.exports = function (fn, settings = { attemp: 2, delay: { ms: null }, ifError }) {
   settings.delay = settings.delay || { ms: null };
-  const exec = function (...argv) {
-    try {
-      return fn.apply(fn, argv);
-    } catch (err) {
-      const call = () => exec.apply(exec, argv);
-
-      if (settings.ifError) {
-        if (err instanceof settings.ifError && settings.attemp - 1) {
-          return repeat(settings, call);
-        }
-      } else {
-        if (settings.attemp - 1) {
-          return repeat(settings, call);
-        }
+  const iterationWithRetry = function (...argv) {
+    return fn.apply(fn, argv).catch(err => {
+      if ((settings.attemp - 1) < 0) {
+        throw err;
       }
-      throw err;
-    }
+      if (!((settings.ifError && err instanceof settings.ifError) || !settings.ifError)) {
+        throw err;
+      }
+      return Promise.resolve().then(() => {
+        if (settings.delay.ms) {
+          return timeout(settings.delay.ms);
+        }
+      }).then(() => {
+        settings.attemp--;
+        return iterationWithRetry.apply(iterationWithRetry, argv)
+      });
+    });
   };
 
-  return exec;
+  return iterationWithRetry;
 }
 
 
-function repeat(settings, call) {
-  const delay = settings.delay;
-  settings.attemp--;
-  if (delay.ms) {
-    return timeout(delay.ms).then(call);
-  }
-  return call();
-}

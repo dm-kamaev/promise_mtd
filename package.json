@@ -1,6 +1,6 @@
 {
   "name": "promise_mtd",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Set of methods allowing simplify work with promises in cycle such as: forEach, map, find, filter, reduce, while, transform. Besides there are methods for comfortable work with promises or asynchronous  operations -  all, retry, timeout.",
   "main": "index.js",
   "scripts": {
